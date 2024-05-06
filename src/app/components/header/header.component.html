@@ -1,0 +1,144 @@
+<div class="w-full bg-gray-100 p-3 flex justify-between">
+    <div class="w-fit bg-white rounded-md">
+        <nz-select class="w-60 ring-1 ring-gray-300 rounded-md" nzBorderless="true" [(ngModel)]="singleValue"
+            [nzSize]="size" [nzCustomTemplate]="defaultTemplate" (ngModelChange)="test()">
+            <nz-option-group *ngFor="let option of listOfOption" [nzLabel]="option.provider">
+                <nz-option [nzLabel]="option.label" [nzValue]="option.value" nzCustomContent>
+                    <img class="inline-flex items-center align-middle mr-1.5"
+                        src='{{ "../../../assets/brand-" + option.provider + ".svg" }}' [alt]="option.label" />
+                    <span class="text-xs font-mono">{{ option.label }}</span>
+                </nz-option>
+            </nz-option-group>
+        </nz-select>
+        <ng-template #defaultTemplate let-selected>
+            <img class="inline-flex items-center align-middle mr-1.5"
+                src='{{ "../../../assets/brand-" + selected.groupLabel + ".svg" }}' [alt]="selected.nzLabel" />
+            <span class="text-xs font-mono">{{ selected.groupLabel}} {{selected.nzLabel }}</span>
+        </ng-template>
+    </div>
+    <div class="flex gap-2 justify-center items-center">
+        <div>
+            <button class="bg-white p-1.5 font-mono rounded-md text-xs font-semibold ring-1 ring-gray-300 hover:bg-gray-50 hover:ring-gray-400" nz-button
+                nz-dropdown [nzDropdownMenu]="menu" nzPlacement="topRight">
+                API Keys
+            </button>
+            <nz-dropdown-menu #menu="nzDropdownMenu">
+                <div nz-menu class="w-96 rounded-md">
+                    <div class="font-mono py-1 px-3">
+                        <h3 class="font-bold text-lg">API Keys</h3>
+                        <p class="text-sm">Your API keys are only stored in your browser and are used solely to
+                            communicate directly to services.</p>
+                    </div>
+                    <div class="h-0.5 w-full bg-gray-200"></div>
+                    <div class="py-1 px-3">
+                        <p class="text-sm font-mono font-base font-semibold my-1.5">{{selectedProvider}}_API_KEY</p>
+                        <!-- <input type="text" class="outline-none w-full border-2 border-gray-200 mt-2 rounded-md p-1.5"> -->
+                        <nz-input-group [nzSuffix]="suffixTemplate" class="rounded-md">
+                            <input
+                              [type]="passwordVisible ? 'text' : 'password'"
+                              nz-input
+                              placeholder="API KEY"
+                              [(ngModel)]="password"
+                            />
+                          </nz-input-group>
+                          <ng-template #suffixTemplate>
+                            <span
+                              nz-icon
+                              [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+                              (click)="passwordVisible = !passwordVisible"
+                            ></span>
+                          </ng-template>
+                    </div>
+                </div>
+            </nz-dropdown-menu>
+        </div>
+        <div>
+            <button nz-button nz-dropdown [nzDropdownMenu]="menuOpt" class="flex justify-center items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-settings">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path
+                        d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" />
+                    <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+                </svg>
+            </button>
+            <nz-dropdown-menu #menuOpt="nzDropdownMenu" nzPlacement="bottomRight">
+                <ul nz-menu class="p-1.5 rounded-md">
+                    <li class="w-60">
+                        <p class="p-2 font-medium">
+                            Menu 1
+                            <span class="inline-block"
+                                nzTooltipTitle="Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate quidem quod iste at adipisci temporibus."
+                                nzTooltipPlacement="right" nz-button nz-tooltip>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M12 9h.01" />
+                                    <path d="M11 12h1v4h1" />
+                                    <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z" />
+                                </svg>
+                            </span>
+                        </p>
+                        <nz-slider [(ngModel)]="value1" class="bg-black"></nz-slider>
+                    </li>
+                    <li>
+                        <p class="p-2 font-medium">
+                            Menu 2
+                            <span class="inline-flex" nzTooltipTitle="prompt text" nzTooltipPlacement="right" nz-button
+                                nz-tooltip>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="icon icon-tabler icons-tabler-outline icon-tabler-info-square-rounded">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M12 9h.01" />
+                                    <path d="M11 12h1v4h1" />
+                                    <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z" />
+                                </svg>
+                            </span>
+                        </p>
+                        <nz-slider [(ngModel)]="value1"></nz-slider>
+                    </li>
+                    <li>
+                        <p class="p-2 font-medium">
+                            Menu 3
+                            <span class="inline-flex" nzTooltipTitle="prompt text" nzTooltipPlacement="right" nz-button
+                                nz-tooltip>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="icon icon-tabler icons-tabler-outline icon-tabler-info-square-rounded">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M12 9h.01" />
+                                    <path d="M11 12h1v4h1" />
+                                    <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z" />
+                                </svg>
+                            </span>
+                        </p>
+                        <nz-slider [(ngModel)]="value1"></nz-slider>
+                    </li>
+                    <li>
+                        <p class="p-2 font-medium">
+                            Menu 4
+                            <span class="inline-flex" nzTooltipTitle="prompt text" nzTooltipPlacement="right" nz-button
+                                nz-tooltip>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="icon icon-tabler icons-tabler-outline icon-tabler-info-square-rounded">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M12 9h.01" />
+                                    <path d="M11 12h1v4h1" />
+                                    <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z" />
+                                </svg>
+                            </span>
+                        </p>
+                        <nz-slider [(ngModel)]="value1"></nz-slider>
+                    </li>
+                </ul>
+            </nz-dropdown-menu>
+        </div>
+    </div>
+</div>

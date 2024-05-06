@@ -1,0 +1,12 @@
+<nz-select class="w-60 ring-1 ring-gray-200 rounded-sm" nzBorderless="true" [(ngModel)]="singleValue" [nzSize]="size" [nzCustomTemplate]="defaultTemplate">
+    <nz-option-group *ngFor="let option of listOfOption" [nzLabel]="option.provider" class="border-2 border-red-500">
+        <nz-option [nzLabel]="option.label" [nzValue]="option.value" nzCustomContent>
+            <img class="inline-flex items-center align-middle mr-1.5" src='{{ "../../../assets/brand-" + option.provider + ".svg" }}' [alt]="option.label" />
+            <span class="text-xs font-mono">{{ option.label }}</span>
+        </nz-option>
+    </nz-option-group>
+</nz-select>
+<ng-template #defaultTemplate let-selected>
+    <img class="inline-flex items-center align-middle mr-1.5" src='{{ "../../../assets/brand-" + selected.groupLabel + ".svg" }}' [alt]="selected.nzLabel" />
+    <span class="text-xs font-mono">{{ selected.nzLabel }}</span>
+</ng-template>
