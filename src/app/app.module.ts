@@ -24,6 +24,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { ChatLayoutComponent } from './components/chat-layout/chat-layout.component';
 import { ChatResponseComponent } from './components/chat-response/chat-response.component';
+import { UserResponseComponent } from './components/user-response/user-response.component';
 
 registerLocaleData(en);
 
@@ -37,7 +38,8 @@ registerLocaleData(en);
     ModelcardComponent,
     HeaderComponent,
     ChatLayoutComponent,
-    ChatResponseComponent
+    ChatResponseComponent,
+    UserResponseComponent
   ],
   imports: [
     BrowserModule,
