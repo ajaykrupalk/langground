@@ -25,6 +25,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { ChatLayoutComponent } from './components/chat-layout/chat-layout.component';
 import { ChatResponseComponent } from './components/chat-response/chat-response.component';
 import { UserResponseComponent } from './components/user-response/user-response.component';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 
 registerLocaleData(en);
 
@@ -52,7 +53,8 @@ registerLocaleData(en);
     NzSliderModule,
     NzToolTipModule,
     NzInputModule,
-    NzIconModule
+    NzIconModule,
+    NzInputNumberModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US }

@@ -1,24 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { NzPlacementType } from 'ng-zorro-antd/dropdown';
 
 @Component({
   selector: 'app-secrets',
   templateUrl: './secrets.component.html',
-  styleUrls: ['./secrets.component.css'],
-  styles: [
-    `
-      [nz-button] {
-        margin-top: 20px;
-        width: 100px;
-        margin-right: 8px;
-        margin-bottom: 8px;
-      }
-      [nz-menu]{
-        width: 200px;
-      }
-    `
-    ]
+  styleUrls: ['./secrets.component.css']
 })
 export class SecretsComponent {
-  value1 = 30;
+  apiKey?: string;
+  passwordVisible = false;
+  @Input() selectedProvider: string = 'OPENAI';
+
+  changeAPIKey(newAPIKey: string){
+    this.apiKey = newAPIKey;
+  }
 }

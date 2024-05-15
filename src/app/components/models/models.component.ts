@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NzSelectSizeType } from 'ng-zorro-antd/select';
 
 @Component({
@@ -9,17 +9,22 @@ import { NzSelectSizeType } from 'ng-zorro-antd/select';
 export class ModelsComponent {
   listOfOption: Array<{ label: string; value: string; provider: string }> = [];
   size: NzSelectSizeType = 'default';
-  singleValue = 'openai-gpt-3';
+  singleValue = 'gpt-3.5-turbo';
+  selectedProvider: string = 'OPENAI'
+  @Output() selectedProviderChange = new EventEmitter<string>();
 
   ngOnInit(): void {
     this.listOfOption = [
-      {label: 'OpenAI gpt-3', value: 'openai-gpt-3', provider: 'OpenAI'},
-      {label: 'Google gemini-pro', value: 'google-gemini-pro',  provider: 'Google'},
-      {label: 'Anthropic claude-3', value: 'anthropic-claude-3', provider: 'Anthropic'},
+      {label: 'gpt-3', value: 'gpt-3.5-turbo', provider: 'OpenAI'},
+      {label: 'gemini-pro', value: 'gemini-pro',  provider: 'Google'},
+      {label: 'claude-3', value: 'claude-3', provider: 'Anthropic'},
     ];
+    this.selectedProviderChange.emit(this.selectedProvider)
   }
 
-  test(selected: any){
-    console.log(selected)
+  changeModel(){
+    const selectedOption = this.listOfOption.find(option => option.value === this.singleValue)
+    this.selectedProvider = selectedOption?.provider.toUpperCase() || 'OPENAI';
+    this.selectedProviderChange.emit(this.selectedProvider)
   }
 }

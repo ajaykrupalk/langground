@@ -1,0 +1,25 @@
+::ng-deep .ant-slider:hover {
+    .ant-slider-track {
+        background-color: black;
+    }
+
+    .ant-slider-handle {
+        border: 1px solid gray;
+    }
+}
+
+::ng-deep .ant-slider-track {
+    background-color: black;
+}
+
+::ng-deep .ant-slider-handle {
+    border: 2px solid lightgrey;
+}
+
+::ng-deep .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+    background-color: #edf2f4;
+}
+
+::ng-deep .ant-select-item-group {
+    font-weight: 600;
+}
