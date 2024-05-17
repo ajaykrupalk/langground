@@ -15,9 +15,9 @@ export class ModelsComponent {
 
   ngOnInit(): void {
     this.listOfOption = [
-      {label: 'gpt-3', value: 'gpt-3.5-turbo', provider: 'OpenAI'},
+      {label: 'gpt-3.5-turbo', value: 'gpt-3.5-turbo', provider: 'OpenAI'},
       {label: 'gemini-pro', value: 'gemini-pro',  provider: 'Google'},
-      {label: 'claude-3', value: 'claude-3', provider: 'Anthropic'},
+      {label: 'claude-2.1', value: 'claude-2.1', provider: 'Anthropic'},
     ];
     this.selectedProviderChange.emit(this.selectedProvider)
   }
