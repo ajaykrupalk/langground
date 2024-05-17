@@ -1,5 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { NzSelectSizeType } from 'ng-zorro-antd/select';
+import { StateService } from '../../services/state.service'
 
 @Component({
   selector: 'app-models',
@@ -9,9 +10,11 @@ import { NzSelectSizeType } from 'ng-zorro-antd/select';
 export class ModelsComponent {
   listOfOption: Array<{ label: string; value: string; provider: string }> = [];
   size: NzSelectSizeType = 'default';
-  singleValue = 'gpt-3.5-turbo';
+  modelValue = 'gpt-3.5-turbo';
   selectedProvider: string = 'OPENAI'
   @Output() selectedProviderChange = new EventEmitter<string>();
+
+  constructor(private stateService: StateService){}
 
   ngOnInit(): void {
     this.listOfOption = [
@@ -22,9 +25,15 @@ export class ModelsComponent {
     this.selectedProviderChange.emit(this.selectedProvider)
   }
 
-  changeModel(){
-    const selectedOption = this.listOfOption.find(option => option.value === this.singleValue)
+  changeProvider(){
+    const selectedOption = this.listOfOption.find(option => option.value === this.modelValue);
     this.selectedProvider = selectedOption?.provider.toUpperCase() || 'OPENAI';
     this.selectedProviderChange.emit(this.selectedProvider)
+    this.stateService.setProvider(this.selectedProvider);
+  }
+
+  changeModel(newModel: any) {
+    this.modelValue = newModel;
+    this.stateService.setModel(this.modelValue);
   }
 }

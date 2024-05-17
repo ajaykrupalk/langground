@@ -17,8 +17,9 @@
                         {{option.value}}
                         <span class="inline-block" [nzTooltipTitle]="option.description" nzTooltipPlacement="right"
                             nz-button nz-tooltip>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                 <path d="M12 9h.01" />
                                 <path d="M11 12h1v4h1" />
@@ -26,14 +27,12 @@
                             </svg>
                         </span>
                     </p>
-                    <!-- <p class="p-2 font-medium">
-                        {{ option.variable}}
-                    </p> -->
                     <nz-input-number [(ngModel)]="option.variable" [nzSize]="'small'" [nzMin]="option.min"
-                    [nzMax]="option.max" [nzStep]="option.step" class="w-16 h-fit font-medium border-1 ring-0 hover:border-gray-200 input-number"/>
+                        [nzMax]="option.max" [nzStep]="option.step"
+                        class="w-16 h-fit font-medium border-1 ring-0 hover:border-gray-200 input-number" />
                 </div>
                 <nz-slider [(ngModel)]="option.variable" class="bg-black" [nzMax]="option.max" [nzMin]="option.min"
-                    [nzStep]="option.step" />
+                    [nzStep]="option.step" (ngModelChange)="changeOptions($event, option.value)"/>
             </li>
         </ul>
     </nz-dropdown-menu>

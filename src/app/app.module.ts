@@ -26,6 +26,7 @@ import { ChatLayoutComponent } from './components/chat-layout/chat-layout.compon
 import { ChatResponseComponent } from './components/chat-response/chat-response.component';
 import { UserResponseComponent } from './components/user-response/user-response.component';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
+import { StateService } from './services/state.service';
 
 registerLocaleData(en);
 
@@ -57,6 +58,7 @@ registerLocaleData(en);
     NzInputNumberModule
   ],
   providers: [
+    StateService,
     { provide: NZ_I18N, useValue: en_US }
   ],
   bootstrap: [AppComponent]

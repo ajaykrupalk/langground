@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { NzSelectSizeType } from 'ng-zorro-antd/select';
 
 @Component({
   selector: 'app-header',

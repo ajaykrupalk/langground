@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { StateService } from '../../services/state.service'
 
 @Component({
   selector: 'app-settings',
@@ -32,4 +33,26 @@ export class SettingsComponent {
       { value: 'Frequency Penalty', max: 1, min: 0, variable: this.frequencyPenalty, step: 0.1, description: 'Penalizes repeated tokens according to frequency.' }
     ],
   };
+
+  constructor(private stateService: StateService){}
+
+  changeOptions(newValue: number, variable: string){
+    switch(variable.toLowerCase()){
+      case 'Temperature': this.temperature = newValue;
+      this.stateService.setTemperature(this.temperature);
+      break;
+      case 'Max Tokens': this.maxTokens = newValue; 
+      this.stateService.setMaxToken(this.maxTokens);
+      break;
+      case 'Top P': this.topP = newValue;
+      this.stateService.settopP(this.topP);
+      break;
+      case 'Top K': this.topK = newValue;
+      this.stateService.settopK(this.topK);
+      break;
+      case 'Frequency Penalty': this.frequencyPenalty = newValue;
+      this.stateService.setfrequencyPenalty(this.frequencyPenalty);
+      break;
+    }
+  }
 }
