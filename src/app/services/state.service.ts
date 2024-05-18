@@ -20,7 +20,7 @@ export class StateService {
   temperature$ = this.temperatureSubject.asObservable();
   maxTokens$ = this.maxTokensSubject.asObservable();
   topP$ = this.topPSubject.asObservable();
-  frequencyPenalty$ = this.frequencyPenaltySubject.asObservable
+  frequencyPenalty$ = this.frequencyPenaltySubject.asObservable();
   topK$ = this.topKSubject.asObservable();
 
   setModel(model: string){
