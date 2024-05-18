@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { StateService } from '../../services/state.service'
 
 @Component({
   selector: 'app-modelcard',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./modelcard.component.css']
 })
 export class ModelcardComponent {
+  provider: string = 'OPENAI'
 
+  constructor(private stateService: StateService) {
+    this.stateService.provider$.subscribe(provider => this.provider = provider);
+  }
 }
