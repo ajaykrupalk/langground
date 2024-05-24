@@ -2,7 +2,7 @@
     <nz-select class="w-60 ring-1 ring-gray-300 rounded-md" nzBorderless="true" [(ngModel)]="modelValue"
         [nzSize]="size" [nzCustomTemplate]="defaultTemplate" (ngModelChange)="changeProvider()">
         <nz-option-group *ngFor="let option of listOfOption" [nzLabel]="option.provider">
-            <nz-option [nzLabel]="option.label" [nzValue]="option.value" nzCustomContent (ngModelChange)="changeModel($event)">
+            <nz-option [nzLabel]="option.label" [nzValue]="option.value" nzCustomContent>
                 <img class="inline-flex items-center align-middle mr-1.5"
                     src='{{ "../../../assets/brand-" + option.provider + ".svg" }}' [alt]="option.label" />
                 <span class="text-xs font-mono">{{ option.label }}</span>

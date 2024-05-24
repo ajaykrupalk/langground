@@ -6,13 +6,14 @@ import { BehaviorSubject } from 'rxjs'
 })
 export class StateService {
   private modelSubject = new BehaviorSubject<string>('gpt-3.5-turbo');
-  private providerSubject = new BehaviorSubject<string>('OPENAI');
+  private providerSubject = new BehaviorSubject<string>('OpenAI');
   private apiKeySubject = new BehaviorSubject<string>('');
   private temperatureSubject = new BehaviorSubject<number>(0.7);
   private maxTokensSubject = new BehaviorSubject<number>(1000);
   private topPSubject = new BehaviorSubject<number>(1);
   private frequencyPenaltySubject = new BehaviorSubject<number>(0.43);
   private topKSubject = new BehaviorSubject<number>(32);
+  private userInputSubject = new BehaviorSubject<Array<any>>([]);
 
   model$ = this.modelSubject.asObservable();
   provider$ = this.providerSubject.asObservable();
@@ -22,6 +23,7 @@ export class StateService {
   topP$ = this.topPSubject.asObservable();
   frequencyPenalty$ = this.frequencyPenaltySubject.asObservable();
   topK$ = this.topKSubject.asObservable();
+  userInput$ = this.userInputSubject.asObservable();
 
   setModel(model: string){
     this.modelSubject.next(model);
@@ -53,5 +55,11 @@ export class StateService {
 
   settopK(topK: number){
     this.topKSubject.next(topK);
+  }
+
+  setUserInput(userInput: any){
+    const currentArray = this.userInputSubject.getValue();
+    const updatedArray = [...currentArray, userInput]
+    this.userInputSubject.next(updatedArray);
   }
 }

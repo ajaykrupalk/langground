@@ -1,13 +1,15 @@
 <div class="w-full h-full overflow-hidden flex flex-col">
     <app-header />
     <div class="flex-grow bg-gray-50 overflow-y-auto">
+        <ng-container *ngFor="let item of setUserInput">
+            <app-user-response *ngIf="item.type === 'user'" [userMessage]="item.message"/>
+            <!-- <app-chat-response /> -->
+        </ng-container> 
         <!-- <app-user-response />
         <app-chat-response />
         <app-user-response />
-        <app-chat-response />
-        <app-user-response />
         <app-chat-response /> -->
-        <app-modelcard />
+        <app-modelcard *ngIf="setUserInput.length <= 0"/>
     </div>
     <app-messagebox />
 </div>

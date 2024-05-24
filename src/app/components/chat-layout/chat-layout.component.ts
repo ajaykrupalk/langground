@@ -16,6 +16,7 @@ export class ChatLayoutComponent {
   topP: number = 1;
   frequencyPenalty: number = 0.43;
   topK: number = 32;
+  setUserInput: Array<any> = [];
 
   constructor(private stateService: StateService){
     this.stateService.model$.subscribe(model => this.model = model)
@@ -26,5 +27,6 @@ export class ChatLayoutComponent {
     this.stateService.topP$.subscribe(topP => this.topP = topP)
     this.stateService.frequencyPenalty$.subscribe(frequencyPenalty => this.frequencyPenalty = frequencyPenalty)
     this.stateService.topK$.subscribe(topK => this.topK = topK)
+    this.stateService.userInput$.subscribe(userInput => this.setUserInput = userInput)
   }
 }

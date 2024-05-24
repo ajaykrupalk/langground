@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { StateService } from '../../services/state.service'
 
 @Component({
   selector: 'app-user-response',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./user-response.component.css']
 })
 export class UserResponseComponent {
+  @Input() userMessage: string = '';
+  userResponse: string = '';
+
+  constructor(private stateService: StateService){}
 
 }

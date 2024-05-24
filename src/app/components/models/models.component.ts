@@ -11,7 +11,7 @@ export class ModelsComponent {
   listOfOption: Array<{ label: string; value: string; provider: string }> = [];
   size: NzSelectSizeType = 'default';
   modelValue = 'gpt-3.5-turbo';
-  selectedProvider: string = 'OPENAI'
+  selectedProvider: string = 'OpenAI'
   @Output() selectedProviderChange = new EventEmitter<string>();
 
   constructor(private stateService: StateService){}
@@ -27,13 +27,9 @@ export class ModelsComponent {
 
   changeProvider(){
     const selectedOption = this.listOfOption.find(option => option.value === this.modelValue);
-    this.selectedProvider = selectedOption?.provider.toUpperCase() || 'OPENAI';
+    this.selectedProvider = selectedOption?.provider || 'OpenAI';
     this.selectedProviderChange.emit(this.selectedProvider)
     this.stateService.setProvider(this.selectedProvider);
-  }
-
-  changeModel(newModel: any) {
-    this.modelValue = newModel;
-    this.stateService.setModel(this.modelValue);
+    this.stateService.setModel(this.modelValue)
   }
 }

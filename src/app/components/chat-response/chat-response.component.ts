@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { StateService } from '../../services/state.service'
 
 @Component({
   selector: 'app-chat-response',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./chat-response.component.css']
 })
 export class ChatResponseComponent {
-
+  constructor(private stateService: StateService){}
 }

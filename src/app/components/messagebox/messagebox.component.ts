@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { StateService } from '../../services/state.service'
 
 @Component({
   selector: 'app-messagebox',
@@ -6,12 +7,21 @@ import { Component } from '@angular/core';
   styleUrls: ['./messagebox.component.css']
 })
 export class MessageboxComponent {
-  textareaContent: string = '';
+  userInput: string = '';
+
+  constructor(private stateService: StateService){}
 
   adjustHeight(): void {
     const textarea = document.getElementById('textBox') as HTMLTextAreaElement;
     textarea.style.overflow = 'hidden';
     textarea.style.height = 'auto';
     textarea.style.height = textarea.scrollHeight + 'px';
+  }
+
+  setUserInput(): void {
+    if(!this.userInput) return;
+    
+    this.stateService.setUserInput({'type': 'user', 'message': this.userInput});
+    this.userInput = ''
   }
 }
