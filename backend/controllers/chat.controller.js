@@ -1,11 +1,9 @@
 import { helper } from '../helpers/helper.js'
 
 const chat = async (req, res) => {
-    console.log("Request", req.body);
-    return;
     try {
-        const { token, question, sessionId, provider, model } = req.body;
-        const stream = await helper(token, question, sessionId, provider, model)
+        const { message, model, provider, apiKey, temperature, maxTokens, topP, frequencyPenalty, topK, sessionId } = req.body;
+        const stream = await helper(message, model, provider, apiKey, temperature, maxTokens, topP, frequencyPenalty, topK, sessionId)
 
         for await (const chunk of stream) {
             const decoder = new TextDecoder();

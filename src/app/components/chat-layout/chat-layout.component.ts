@@ -41,10 +41,12 @@ export class ChatLayoutComponent {
       maxTokens: this.maxTokens,
       topP: this.topP,
       frequencyPenalty: this.frequencyPenalty,
-      topK: this.topK
+      topK: this.topK,
+      sessionId: "123"
     }
 
-    this.backendService.sendMessagePrompt(obj).subscribe(response => this.chatResponse = response.message);
+    this.backendService.sendMessagePrompt(obj).subscribe(response => this.chatResponse = response);
+    console.log("Message Received: " + this.chatResponse);
     this.stateService.setUserInput({'type': 'chat', 'message': this.chatResponse})
     this.chatResponse = ''
   }

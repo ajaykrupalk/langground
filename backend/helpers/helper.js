@@ -6,26 +6,41 @@ import { HttpResponseOutputParser } from "langchain/output_parsers";
 import { RunnableWithMessageHistory } from "@langchain/core/runnables";
 import { ChatMessageHistory } from "langchain/stores/message/in_memory";
 import { ChatOpenAI } from "@langchain/openai";
+import { ChatAnthropic } from "@langchain/anthropic";
 
-var model;
+var providerModel;
 
-function chooseModel(provider, model, token) {
-    switch (provider) {
+function chooseModel(provider, model, apiKey, temperature, maxTokens, topP, frequencyPenalty, topK) {
+    switch (provider.toLowerCase()) {
+        case "openai": return new ChatOpenAI({
+            modelName: model,
+            maxTokens: maxTokens,
+            apiKey: apiKey,
+            temperature: temperature,
+            frequencyPenalty: frequencyPenalty,
+            topP: topP
+        })
         case "google": return new ChatGoogleGenerativeAI({
             modelName: model,
-            maxOutputTokens: 2048,
-            apiKey: token
+            maxOutputTokens: maxTokens,
+            apiKey: apiKey,
+            temperature: temperature,
+            topK: topK,
+            topP: topP
         })
-        case "openai": return new ChatOpenAI({
-            model: model,
-            temperature: 0,
-            apiKey: token
+        case "anthropic": return new ChatAnthropic({
+            modelName: model,
+            maxTokens: maxTokens,
+            apiKey: apiKey,
+            temperature: temperature,
+            topK: topK,
+            topP: topP
         })
         default: throw new Error("Invalid Provider");
     }
 }
 
-function createRephraseQuestionChain(model) {
+function createRephraseQuestionChain(providerModel) {
     const REPHRASE_QUESTION_SYSTEM_TEMPLATE = `Given the following conversation and a follow up question, rephrase the follow up question to be a standalone question.`;
 
     const rephraseQuestionChainPrompt = ChatPromptTemplate.fromMessages([
@@ -35,7 +50,7 @@ function createRephraseQuestionChain(model) {
     ]);
     const rephraseQuestionChain = RunnableSequence.from([
         rephraseQuestionChainPrompt,
-        model,
+        providerModel,
         new StringOutputParser(),
     ]);
     return rephraseQuestionChain;
@@ -52,11 +67,11 @@ const getMessageHistoryForSession = (sessionId) => {
     return newChatSessionHistory;
 };
 
-async function helper(token, question, sessionId, provider, model) {
+async function helper(message, model, provider, apiKey, temperature, maxTokens, topP, frequencyPenalty, topK, sessionId) {
     try {
-        model = chooseModel(provider, model, token);
+        providerModel = chooseModel(provider, model, apiKey, temperature, maxTokens, topP, frequencyPenalty, topK);
 
-        const rephraseQuestionChain = createRephraseQuestionChain(model);
+        const rephraseQuestionChain = createRephraseQuestionChain(providerModel);
 
         const ANSWER_CHAIN_SYSTEM_TEMPLATE = `You are an experienced researcher,
                                             expert at interpreting and answering questions.
@@ -80,7 +95,7 @@ async function helper(token, question, sessionId, provider, model) {
                 standalone_question: rephraseQuestionChain,
             }),
             answerGenerationChainPrompt,
-            model
+            providerModel
         ]);
 
         const httpResponseOutputParser = new HttpResponseOutputParser({
@@ -95,7 +110,7 @@ async function helper(token, question, sessionId, provider, model) {
         }).pipe(httpResponseOutputParser);
 
         const stream = await finalRetrievalChain.stream({
-            question: question
+            question: message
         }, { configurable: { sessionId: sessionId } });
 
         return stream;

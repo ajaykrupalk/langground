@@ -14,9 +14,11 @@ export class SecretsComponent {
 
   constructor(private stateService: StateService){
     this.stateService.provider$.subscribe(provider => this.provider = provider.toUpperCase());
+    this.stateService.apiKey$.subscribe(apiKey => this.apiKey = apiKey);
   }
 
   changeAPIKey(newAPIKey: string){
     this.apiKey = newAPIKey;
+    this.stateService.setApiKey(this.apiKey);
   }
 }
