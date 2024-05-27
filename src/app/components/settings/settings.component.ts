@@ -37,8 +37,9 @@ export class SettingsComponent {
   constructor(private stateService: StateService){}
 
   changeOptions(newValue: number, variable: string){
-    switch(variable.toLowerCase()){
+    switch(variable){
       case 'Temperature': this.temperature = newValue;
+      console.log("inside temperature", this.temperature)
       this.stateService.setTemperature(this.temperature);
       break;
       case 'Max Tokens': this.maxTokens = newValue; 

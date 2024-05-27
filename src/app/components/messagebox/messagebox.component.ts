@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { StateService } from '../../services/state.service'
 
 @Component({
@@ -8,6 +8,7 @@ import { StateService } from '../../services/state.service'
 })
 export class MessageboxComponent {
   userInput: string = '';
+  @Output() onMessage = new EventEmitter<string>();
 
   constructor(private stateService: StateService){}
 
@@ -22,6 +23,7 @@ export class MessageboxComponent {
     if(!this.userInput) return;
     
     this.stateService.setUserInput({'type': 'user', 'message': this.userInput});
+    this.onMessage.emit(this.userInput);
     this.userInput = ''
   }
 }

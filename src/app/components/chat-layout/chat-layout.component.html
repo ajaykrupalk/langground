@@ -5,11 +5,7 @@
             <app-user-response *ngIf="item.type === 'user'" [userMessage]="item.message"/>
             <!-- <app-chat-response /> -->
         </ng-container> 
-        <!-- <app-user-response />
-        <app-chat-response />
-        <app-user-response />
-        <app-chat-response /> -->
         <app-modelcard *ngIf="setUserInput.length <= 0"/>
     </div>
-    <app-messagebox />
+    <app-messagebox (onMessage)="sendMessage($event)"/>
 </div>
