@@ -11,9 +11,18 @@ export class BackendService {
   constructor(private http: HttpClient) {}
 
   sendMessagePrompt(request: object): Observable<any>{
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+
     return this.http.post(
       this.apiUrl,
-      request
+      request,
+      {
+        headers, 
+        responseType: 'text',
+        observe: 'body'
+      }
     )
   }
 }

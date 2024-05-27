@@ -3,7 +3,7 @@
     <div class="flex-grow bg-gray-50 overflow-y-auto">
         <ng-container *ngFor="let item of setUserInput">
             <app-user-response *ngIf="item.type === 'user'" [userMessage]="item.message"/>
-            <!-- <app-chat-response /> -->
+            <app-chat-response *ngIf="item.type === 'chat'" [chatMessage]="chatResponse"/>
         </ng-container> 
         <app-modelcard *ngIf="setUserInput.length <= 0"/>
     </div>

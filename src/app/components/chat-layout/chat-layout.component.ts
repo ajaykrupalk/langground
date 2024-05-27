@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { StateService } from '../../services/state.service'
 import { BackendService } from 'src/app/services/backend.service';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-chat-layout',
@@ -45,8 +46,11 @@ export class ChatLayoutComponent {
       sessionId: "123"
     }
 
-    this.backendService.sendMessagePrompt(obj).subscribe(response => this.chatResponse = response);
-    console.log("Message Received: " + this.chatResponse);
+    this.backendService.sendMessagePrompt(obj).pipe(
+      tap((chunk:string) => {
+        this.chatResponse += chunk;
+      })
+    ).subscribe(()=>console.log("Message Received: ", this.chatResponse));
     this.stateService.setUserInput({'type': 'chat', 'message': this.chatResponse})
     this.chatResponse = ''
   }
