@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { StateService } from '../../services/state.service'
 import { BackendService } from 'src/app/services/backend.service';
 import { tap } from 'rxjs';
@@ -20,7 +20,7 @@ export class ChatLayoutComponent {
   setUserInput: Array<any> = [];
   chatResponse: string = '';
 
-  constructor(private stateService: StateService, private backendService: BackendService){
+  constructor(private stateService: StateService, private backendService: BackendService, private changeDetectorRef: ChangeDetectorRef){
     this.stateService.model$.subscribe(model => this.model = model)
     this.stateService.provider$.subscribe(provider => this.provider = provider)
     this.stateService.apiKey$.subscribe(apiKey => this.apiKey = apiKey)
@@ -47,10 +47,15 @@ export class ChatLayoutComponent {
     }
 
     this.backendService.sendMessagePrompt(obj).pipe(
-      tap((chunk:string) => {
+      tap((chunk: string) => {
+        console.log("backend sent message", chunk);
         this.chatResponse += chunk;
+        this.changeDetectorRef.detectChanges();
       })
-    ).subscribe(()=>console.log("Message Received: ", this.chatResponse));
+    ).subscribe({
+      complete: () => console.log("Message Received: ", this.chatResponse),
+      error: (err) => console.error('Error: ', err)
+    });
     this.stateService.setUserInput({'type': 'chat', 'message': this.chatResponse})
     this.chatResponse = ''
   }

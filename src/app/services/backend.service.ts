@@ -10,19 +10,46 @@ export class BackendService {
 
   constructor(private http: HttpClient) {}
 
-  sendMessagePrompt(request: object): Observable<any>{
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
-    });
+  sendMessagePrompt(request: object): Observable<string> {
+    return new Observable(observer => {
+      const controller = new AbortController();
+      const signal = controller.signal;
 
-    return this.http.post(
-      this.apiUrl,
-      request,
-      {
-        headers, 
-        responseType: 'text',
-        observe: 'body'
-      }
-    )
+      fetch(this.apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(request),
+        signal: signal
+      }).then(response => {
+        if (!response.body) {
+          observer.error('Response body is null');
+          return;
+        }
+        
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+
+        function readStream() {
+          reader.read().then(({ done, value }) => {
+            if (done) {
+              observer.complete();
+              return;
+            }
+            observer.next(decoder.decode(value, { stream: true }));
+            readStream();
+          }).catch(error => {
+            observer.error(error);
+          });
+        }
+
+        readStream();
+      }).catch(error => {
+        observer.error(error);
+      });
+
+      return () => controller.abort();
+    });
   }
 }
