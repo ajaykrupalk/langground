@@ -1,7 +1,7 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { StateService } from '../../services/state.service'
 import { BackendService } from 'src/app/services/backend.service';
-import { tap } from 'rxjs';
+import { tap, finalize } from 'rxjs';
 
 @Component({
   selector: 'app-chat-layout',
@@ -19,6 +19,8 @@ export class ChatLayoutComponent {
   topK: number = 32;
   setUserInput: Array<any> = [];
   chatResponse: string = '';
+  loading: boolean = false;
+  textStreaming: boolean = true;
 
   constructor(private stateService: StateService, private backendService: BackendService, private changeDetectorRef: ChangeDetectorRef){
     this.stateService.model$.subscribe(model => this.model = model)
@@ -33,6 +35,8 @@ export class ChatLayoutComponent {
   }
 
   sendMessage(userMessage: string){
+    this.loading = true;
+
     const obj = {
       message: userMessage,
       model: this.model,
@@ -46,17 +50,24 @@ export class ChatLayoutComponent {
       sessionId: "123"
     }
 
-    this.backendService.sendMessagePrompt(obj).pipe(
+    this.backendService.sendMessagePrompt(obj)
+    .pipe(
       tap((chunk: string) => {
-        console.log("backend sent message", chunk);
+        this.textStreaming = false;
         this.chatResponse += chunk;
         this.changeDetectorRef.detectChanges();
+      }),
+      finalize(() => {
+        this.stateService.setUserInput({ 'type': 'chat', 'message': this.chatResponse });
+        this.chatResponse = '';
+        this.loading = false;
       })
-    ).subscribe({
-      complete: () => console.log("Message Received: ", this.chatResponse),
-      error: (err) => console.error('Error: ', err)
-    });
-    this.stateService.setUserInput({'type': 'chat', 'message': this.chatResponse})
-    this.chatResponse = ''
+    )
+    .subscribe(
+      {
+        complete: () => console.log("Message Received: ", this.chatResponse),
+        error: (err) => console.error('Error: ', err)
+      }
+    );
   }
 }

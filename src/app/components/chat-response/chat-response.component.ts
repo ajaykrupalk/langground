@@ -8,6 +8,7 @@ import { StateService } from '../../services/state.service'
 })
 export class ChatResponseComponent {
   @Input() chatMessage: string = '';
+  @Input() loading: boolean = false;
 
   constructor(private stateService: StateService){}
 }

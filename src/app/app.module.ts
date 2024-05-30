@@ -27,6 +27,7 @@ import { ChatResponseComponent } from './components/chat-response/chat-response.
 import { UserResponseComponent } from './components/user-response/user-response.component';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { StateService } from './services/state.service';
+import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
 
 registerLocaleData(en);
 
@@ -55,7 +56,8 @@ registerLocaleData(en);
     NzToolTipModule,
     NzInputModule,
     NzIconModule,
-    NzInputNumberModule
+    NzInputNumberModule,
+    NzSkeletonModule
   ],
   providers: [
     StateService,
