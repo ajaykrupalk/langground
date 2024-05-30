@@ -2,17 +2,29 @@
     <div class="max-w-max relative">
         <textarea placeholder="Send a message"
             class="outline-none border-2 border-gray-200 resize-none rounded-md p-2 w-[50em] overflow-y-hidden pr-12"
-            rows="1" id="textBox" [(ngModel)]="userInput" (input)="adjustHeight()" (keydown.enter)="$event.preventDefault(); setUserInput()">
+            rows="1" id="textBox" [(ngModel)]="userInput" (input)="adjustHeight()"
+            (keydown.enter)="$event.preventDefault(); setUserInput()">
         </textarea>
-        <button class="flex absolute top-2 right-2 bg-black p-0.5 rounded-md w-6 h-6 disabled:opacity-30" (click)="setUserInput()" [disabled]="!userInput.trim()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="stroke-white">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <path d="M12 5l0 14" />
-                <path d="M16 9l-4 -4" />
-                <path d="M8 9l4 -4" />
-            </svg>
+        <button class="flex absolute top-2 right-2 bg-black p-0.5 rounded-md w-6 h-6 disabled:opacity-30"
+            (click)="setUserInput()" [disabled]="!userInput.trim() || loading">
+            <ng-container *ngIf="!loading">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="stroke-white">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M12 5l0 14" />
+                    <path d="M16 9l-4 -4" />
+                    <path d="M8 9l4 -4" />
+                </svg>
+            </ng-container>
+            <ng-container *ngIf="loading">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                    class="animate-spin">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M12 3a9 9 0 1 0 9 9" />
+                </svg>
+            </ng-container>
         </button>
     </div>
 </div>

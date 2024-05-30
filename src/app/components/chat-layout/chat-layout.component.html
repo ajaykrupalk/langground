@@ -8,5 +8,5 @@
         <app-chat-response *ngIf="loading" [chatMessage]="chatResponse" [loading]="textStreaming"/>
         <app-modelcard *ngIf="setUserInput.length <= 0"/>
     </div>
-    <app-messagebox (onMessage)="sendMessage($event)"/>
+    <app-messagebox (onMessage)="sendMessage($event)" [loading]="loading"/>
 </div>
