@@ -81,7 +81,6 @@ export class ChatLayoutComponent {
         {
           complete: () => {
             this.textStreaming = true;
-            this.changeDetectorRef.detectChanges();
           },
           error: (err) => {
               this.message.error(`Error: ${err.message}`, { nzDuration: 3000 });
