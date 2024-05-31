@@ -23,6 +23,9 @@ export class MessageboxComponent {
   setUserInput(): void {
     if(!this.userInput) return;
     
+    const textarea = document.getElementById('textBox') as HTMLTextAreaElement;
+    textarea.style.height = ''; 
+    
     // this.stateService.setUserInput({'type': 'user', 'message': this.userInput});
     this.onMessage.emit(this.userInput);
     this.userInput = ''
