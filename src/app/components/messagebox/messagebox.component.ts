@@ -23,7 +23,7 @@ export class MessageboxComponent {
   setUserInput(): void {
     if(!this.userInput) return;
     
-    this.stateService.setUserInput({'type': 'user', 'message': this.userInput});
+    // this.stateService.setUserInput({'type': 'user', 'message': this.userInput});
     this.onMessage.emit(this.userInput);
     this.userInput = ''
   }

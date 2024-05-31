@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { MarkdownModule } from 'ngx-markdown';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -28,6 +29,7 @@ import { UserResponseComponent } from './components/user-response/user-response.
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { StateService } from './services/state.service';
 import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 
 registerLocaleData(en);
 
@@ -45,6 +47,7 @@ registerLocaleData(en);
     UserResponseComponent
   ],
   imports: [
+    MarkdownModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
     FormsModule,
@@ -57,7 +60,8 @@ registerLocaleData(en);
     NzInputModule,
     NzIconModule,
     NzInputNumberModule,
-    NzSkeletonModule
+    NzSkeletonModule,
+    NzMessageModule
   ],
   providers: [
     StateService,
