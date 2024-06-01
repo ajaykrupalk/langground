@@ -73,11 +73,13 @@ async function helper(message, model, provider, apiKey, temperature, maxTokens, 
 
         const rephraseQuestionChain = createRephraseQuestionChain(providerModel);
 
-        const ANSWER_CHAIN_SYSTEM_TEMPLATE = `You are an experienced researcher,
-                                            expert at interpreting and answering questions.
-                                            Using the below provided context and chat history, 
-                                            answer the user's question to the best of your ability
-                                            using only the resources provided. Be verbose!`;
+        const ANSWER_CHAIN_SYSTEM_TEMPLATE = `You are an AI assistant. You have a broad knowledge base spanning various topic,
+        allowing  you to engage in thoughtful conversations and provide informative responses. If the context and chat history 
+        do not contain sufficient information to fully address the question or topic, acknowledge the limitations and provide 
+        the best possible response based on the available information. Ask clarifying questions if needed, but always aim to 
+        provide a substantive answer that demonstrates your depth of knowledge and reasoning abilities.Your responses should be 
+        thorough, well-structured, and easy to understand. Use your analytical and communication skills to break down complex topics, 
+        offer clear explanations, and provide insightful perspectives. Maintain a friendly and engaging tone throughout the conversation.`;
 
         const answerGenerationChainPrompt = ChatPromptTemplate.fromMessages([
             ["system", ANSWER_CHAIN_SYSTEM_TEMPLATE],
@@ -101,7 +103,7 @@ async function helper(message, model, provider, apiKey, temperature, maxTokens, 
         const httpResponseOutputParser = new HttpResponseOutputParser({
             contentType: "text/plain"
         });
-        
+
         const finalRetrievalChain = new RunnableWithMessageHistory({
             runnable: conversationalRetrievalChain,
             getMessageHistory: getMessageHistoryForSession,
