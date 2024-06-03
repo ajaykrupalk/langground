@@ -10,10 +10,10 @@
         </svg>
     </button>
     <nz-dropdown-menu #menuOpt="nzDropdownMenu" nzPlacement="bottomRight">
-        <ul nz-menu class="p-1.5 rounded-md">
-            <li class="w-60" *ngFor="let option of options[selectedProvider]">
+        <ul nz-menu class="p-1.5 rounded-md w-52 md:w-full">
+            <li *ngFor="let option of options[selectedProvider]">
                 <div class="flex justify-between align-bottom">
-                    <p class="p-2 font-medium">
+                    <p class="p-2 font-medium text-xs md:text-base">
                         {{option.value}}
                         <span class="inline-block" [nzTooltipTitle]="option.description" nzTooltipPlacement="right"
                             nz-button nz-tooltip>
@@ -31,7 +31,7 @@
                         [nzMax]="option.max" [nzStep]="option.step"
                         class="w-16 h-fit font-medium border-1 ring-0 hover:border-gray-200 input-number" />
                 </div>
-                <nz-slider [(ngModel)]="option.variable" class="bg-black" [nzMax]="option.max" [nzMin]="option.min"
+                <nz-slider [(ngModel)]="option.variable" class="w-fit bg-black" [nzMax]="option.max" [nzMin]="option.min"
                     [nzStep]="option.step" (ngModelChange)="changeOptions($event, option.value)"/>
             </li>
         </ul>
