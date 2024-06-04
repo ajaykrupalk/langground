@@ -1,3 +1,4 @@
+import { environment } from './../../environment/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http"
 import { Observable, Observer } from 'rxjs';
@@ -6,9 +7,12 @@ import { Observable, Observer } from 'rxjs';
   providedIn: 'root'
 })
 export class BackendService {
-  private apiUrl = 'http://localhost:3000/chat'
+  
+  private apiUrl = `${environment.backendUrl}/chat`
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    console.log(environment.backendUrl, this.apiUrl)
+  }
 
   sendMessagePrompt(request: object): Observable<string> {
     return new Observable(observer => {
@@ -45,6 +49,8 @@ function handleResponseBody(response: Response, observer: Observer<string>) {
     observer.error(new Error('Response body is null'));
     return;
   }
+
+  console.log("response body is ", response.body)
 
   const reader = response.body.getReader();
   const decoder = new TextDecoder();
