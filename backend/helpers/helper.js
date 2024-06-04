@@ -86,9 +86,9 @@ async function helper(message, model, provider, apiKey, temperature, maxTokens, 
             new MessagesPlaceholder("history"),
             [
                 "human",
-                `Now, answer this question using the previous context and chat history:
-  
-    {standalone_question}`
+                `Now, with your knowledge available, answer this question, and if there is any previous context revolving this question use the 
+                previous context and chat history, answer this question:
+                {standalone_question}`
             ]
         ]);
 
