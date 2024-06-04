@@ -14,6 +14,6 @@ app.use((req, res, next) => {
 
 app.use("",chatRoute)
 
-app.listen(3000,()=>{
+app.listen(10000,()=>{
     console.log('Listening to requests...')
 })
