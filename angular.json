@@ -30,10 +30,16 @@
               }
             ],
             "styles": [
+              "node_modules/prismjs/themes/prism-okaidia.css",
               "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/marked/marked.min.js",
+              "node_modules/prismjs/prism.js",
+              "node_modules/prismjs/components/prism-csharp.min.js",
+              "node_modules/prismjs/components/prism-css.min.js"
+            ]
           },
           "configurations": {
             "production": {
