@@ -50,8 +50,6 @@ function handleResponseBody(response: Response, observer: Observer<string>) {
     return;
   }
 
-  console.log("response body is ", response.body)
-
   const reader = response.body.getReader();
   const decoder = new TextDecoder();
 

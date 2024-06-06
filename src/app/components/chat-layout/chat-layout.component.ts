@@ -38,7 +38,7 @@ export class ChatLayoutComponent implements AfterViewChecked {
   }
 
   ngOnInit(): void {
-    this.sessionId = `${Math.random() * (99000 - 10000) + 10000}`
+    this.sessionId = `${Math.floor(Math.random() * (99000 - 10000) + 10000)}`
   }
 
   ngAfterViewChecked() {
