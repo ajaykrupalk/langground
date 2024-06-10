@@ -1,7 +1,7 @@
 <div class="w-full flex justify-center items-center p-1.5 bg-gray-100 sticky bottom-0">
     <div class="w-full md:max-w-max relative">
         <textarea placeholder="Send a message"
-            class="outline-none border-2 border-gray-200 resize-none rounded-md p-2 w-full md:w-[50em] overflow-y-scroll pr-12 max-h-24"
+            class="outline-none border-2 border-gray-200 resize-none rounded-md p-2 w-full md:w-[50em] overflow-y-auto pr-12 max-h-24"
             rows="1" id="textBox" [(ngModel)]="userInput" (input)="adjustHeight()"
             (keydown.enter)="$event.preventDefault(); setUserInput()">
         </textarea>
