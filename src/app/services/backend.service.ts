@@ -10,9 +10,7 @@ export class BackendService {
   
   private apiUrl = `${environment.backendUrl}/chat`
 
-  constructor(private http: HttpClient) { 
-    console.log(environment.backendUrl, this.apiUrl)
-  }
+  constructor(private http: HttpClient) {}
 
   sendMessagePrompt(request: object): Observable<string> {
     return new Observable(observer => {
