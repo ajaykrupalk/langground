@@ -33,7 +33,7 @@ export class ModelcardComponent {
         break;
       case 'google':
         this.description = "The multi-modal model from Google's Gemini family that balances model performance and speed. Exhibits strong generalist capabilities and excels particularly in cross-modal reasoning."
-        this.model = 'gemini-pro'
+        this.model = 'gemini-1.5-pro'
         this.modelPage = 'https://deepmind.google/technologies/gemini/'
         this.pricing = 'https://ai.google.dev/pricing'
         this.docs = 'https://js.langchain.com/v0.2/docs/integrations/chat/google_generativeai'
